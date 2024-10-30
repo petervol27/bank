@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "users",
     "accounts",
+    "loans",
+    "transactions",
+    "credits",
 ]
 
 MIDDLEWARE = [
