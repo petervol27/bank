@@ -33,4 +33,5 @@ urlpatterns = [
     path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("", include("home.urls")),
     path("users/", include("users.urls")),
+    path("accounts/", include("accounts.urls")),
 ]
