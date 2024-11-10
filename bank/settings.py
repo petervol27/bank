@@ -48,8 +48,8 @@ CORS_ALLOWED_ORIGINS = [
 # CSRF_COOKIE_SECURE = True
 
 # CSRF_TRUSTED_ORIGINS = [
-#     "https://bank-7aro.onrender.com",
-#     "bank-7aro.onrender.com",
+#     "https://bank-zdpd.onrender.com",
+#     "bank-zdpd.onrender.com",
 # ]
 
 # Application definition
