@@ -31,15 +31,15 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "https://bank-7aro.onrender.com",
+    "https://bank-zdpd.onrender.com",
     "https://bank-front-xwed.onrender.com",
-    "bank-7aro.onrender.com",
+    "bank-zdpd.onrender.com",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
     "https://bank-front-xwed.onrender.com",
-    "https://bank-7aro.onrender.com",
+    "https://bank-zdpd.onrender.com",
 ]
 
 
