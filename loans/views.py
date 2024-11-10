@@ -28,7 +28,7 @@ def get_loans(request):
 def request_loan(request):
     def check_loan():
         while True:
-            loan_num = str(random.randint(10**8, 10**12 - 1))
+            loan_num = str(random.randint(10**8, 2147483647))
             check = Loan.objects.filter(loan_number=loan_num)
             if not check:
                 return loan_num
