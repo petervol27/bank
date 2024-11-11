@@ -37,7 +37,7 @@ def request_loan(request):
     account = Account.objects.get(user=request.user)
     check_loan_limit = Loan.objects.filter(account=account.id).count()
     if check_loan_limit >= 1:
-        return Response({"failure": "sorry you already have two loans"})
+        return Response({"failure": "Sorry you already have a Loan"})
     else:
         data["account"] = account.id
         loan_num = check_loan()
@@ -50,8 +50,8 @@ def request_loan(request):
             loan_transaction = {
                 "amount": data["amount"],
                 "reciever_account": account.id,
-                "transaction_type": "loan",
-                "details": "took a loan",
+                "transaction_type": "Loan",
+                "details": "Took a Loan",
                 "reciever_new_balance": new_account_balance,
             }
             transaction_serializer = TransactionSerializer(data=loan_transaction)

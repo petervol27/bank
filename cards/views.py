@@ -25,7 +25,7 @@ def card_request(request):
     account = Account.objects.get(user=request.user)
     card_limit = Card.objects.filter(account=account.id).count()
     if card_limit == 1:
-        return Response({"failure": "sorry you already have a card"})
+        return Response({"failure": "Sorry you already have a card"})
     else:
         data["account"] = account.id
         user = request.user
