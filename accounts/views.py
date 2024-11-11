@@ -32,8 +32,8 @@ def auto_create(request):
 @permission_classes([IsAuthenticated])
 def get_account(request):
     account = Account.objects.get(user=request.user)
-    lname = request.user.last_name
-    fname = request.user.first_name
+    lname = request.user.last_name.capitalize()
+    fname = request.user.first_name.capitalize()
     serializer = AccountSerializer(account)
     return Response(
         {"account": serializer.data, "user": {"lname": lname, "fname": fname}}
