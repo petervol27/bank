@@ -54,38 +54,45 @@ def makeTransaction(request):
         reciever.save()
     elif transaction == "loan":
         loan = Loan.objects.get(account=sender_id)
-        loan_balance = loan.left_to_pay
-        if Decimal(amount) > loan_balance:
-            return Response(
-                {"failure": "Loan balance smaller than what you are trying to pay!"}
-            )
-        new_loan_balance = loan_balance - Decimal(amount)
-        loan.left_to_pay = new_loan_balance
-        if loan.left_to_pay == 0:
-            loan.delete()
-        else:
-            loan.save()
-        new_sender_balance = sender.balance - Decimal(amount)
-        data["sender_new_balance"] = new_sender_balance
-        sender.balance = new_sender_balance
-        sender.save()
-    elif transaction == "credit":
-        card = Card.objects.get(account=sender_id)
-        card_balance = card.current_credit_used
-        if card_balance == 0:
-            return Response({"failure": "Credit card not used!"})
-        elif Decimal(amount) > card_balance:
-            return Response(
-                {"failure": "Your Credit has less the amount you tried to pay!"}
-            )
-        else:
-            new_card_balance = card_balance - Decimal(amount)
-            card.current_credit_used = new_card_balance
-            card.save()
+        if loan:
+            loan_balance = loan.left_to_pay
+            if Decimal(amount) > loan_balance:
+                return Response(
+                    {"failure": "Loan balance smaller than what you are trying to pay!"}
+                )
+            new_loan_balance = loan_balance - Decimal(amount)
+            loan.left_to_pay = new_loan_balance
+            if loan.left_to_pay == 0:
+                loan.delete()
+            else:
+                loan.save()
             new_sender_balance = sender.balance - Decimal(amount)
             data["sender_new_balance"] = new_sender_balance
             sender.balance = new_sender_balance
             sender.save()
+        else:
+            return Response({"failure": "You have no Loan"})
+    elif transaction == "credit":
+        card = Card.objects.get(account=sender_id)
+        if card:
+
+            card_balance = card.current_credit_used
+            if card_balance == 0:
+                return Response({"failure": "Credit card not used!"})
+            elif Decimal(amount) > card_balance:
+                return Response(
+                    {"failure": "Your Credit has less the amount you tried to pay!"}
+                )
+            else:
+                new_card_balance = card_balance - Decimal(amount)
+                card.current_credit_used = new_card_balance
+                card.save()
+                new_sender_balance = sender.balance - Decimal(amount)
+                data["sender_new_balance"] = new_sender_balance
+                sender.balance = new_sender_balance
+                sender.save()
+        else:
+            return Response({"failure": "You have no Credit Card"})
     new_transaction = TransactionSerializer(data=data)
     if new_transaction.is_valid():
         new_transaction.save()
