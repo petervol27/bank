@@ -32,7 +32,7 @@ def makeTransaction(request):
         new_balance = reciever.balance + Decimal(amount)
         data["reciever_new_balance"] = new_balance
         reciever.balance = new_balance
-
+        reciever.save()
     elif transaction == "transfer":
         new_reciever_balance = reciever.balance + Decimal(amount)
         new_sender_balance = sender.balance - Decimal(amount)
@@ -86,8 +86,6 @@ def makeTransaction(request):
             data["sender_new_balance"] = new_sender_balance
             sender.balance = new_sender_balance
             sender.save()
-    reciever.save()
-    sender.save()
     new_transaction = TransactionSerializer(data=data)
     if new_transaction.is_valid():
         new_transaction.save()
