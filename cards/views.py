@@ -75,18 +75,21 @@ def use_card(request):
     user = request.user
     account = Account.objects.get(user=user)
     card = Card.objects.get(account=account.id)
-    amount = data["amount"]
-    card_limit = card.credit_limit
-    new_credit_used = card.current_credit_used + Decimal(amount)
-    if new_credit_used > card_limit:
-        return Response({"failure": "you are over your card limit!"})
-    else:
-        data["card"] = card.id
-        serializer = CreditTransactionSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            card.current_credit_used = new_credit_used
-            card.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    if card:
+        amount = data["amount"]
+        card_limit = card.credit_limit
+        new_credit_used = card.current_credit_used + Decimal(amount)
+        if new_credit_used > card_limit:
+            return Response({"failure": "you are over your card limit!"})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            data["card"] = card.id
+            serializer = CreditTransactionSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                card.current_credit_used = new_credit_used
+                card.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({"failure": "You have no card"})
