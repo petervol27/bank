@@ -55,6 +55,8 @@ def makeTransaction(request):
     elif transaction == "loan":
         loan = Loan.objects.get(account=sender_id)
         loan_balance = loan.left_to_pay
+        if Decimal(amount) > loan_balance:
+            return Response("Loan balance smaller than what you are trying to pay!")
         new_loan_balance = loan_balance - Decimal(amount)
         loan.left_to_pay = new_loan_balance
         if loan.left_to_pay == 0:
