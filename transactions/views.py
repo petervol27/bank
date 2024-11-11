@@ -72,6 +72,10 @@ def makeTransaction(request):
         card_balance = card.current_credit_used
         if card_balance == 0:
             return Response({"failure": "Credit card not used!"})
+        elif Decimal(amount) > card_balance:
+            return Response(
+                {"failure": "Your Credit has less the amount you tried to pay!"}
+            )
         else:
             new_card_balance = card_balance - Decimal(amount)
             card.current_credit_used = new_card_balance
