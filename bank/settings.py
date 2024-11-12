@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     "loans",
     "transactions",
     "cards",
+    "admin",
 ]
 
 MIDDLEWARE = [
