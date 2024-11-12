@@ -20,7 +20,7 @@ def manager_data(request):
     accounts = Account.objects.all()
     loans = Loan.objects.all()
     cards = Card.objects.all()
-    credit_transactions = CreditTransaction.object.all()
+    credit_transactions = CreditTransaction.objects.all()
     transactions = Transaction.objects.all()
     users_serializer = BankUserSerializer(users, many=True)
     accounts_serializer = AccountSerializer(accounts, many=True)
@@ -32,11 +32,11 @@ def manager_data(request):
     transactions_serializer = TransactionSerializer(transactions, many=True)
     return Response(
         {
-            users: users_serializer.data,
-            accounts: accounts_serializer.data,
-            loans: loans_serializer.data,
-            cards: cards_serializer.data,
-            credit_transactions: credit_transactions_serializer.data,
-            transactions: transactions_serializer.data,
+            "users": users_serializer.data,
+            "accounts": accounts_serializer.data,
+            "loans": loans_serializer.data,
+            "cards": cards_serializer.data,
+            "credit_transactions": credit_transactions_serializer.data,
+            "transactions": transactions_serializer.data,
         }
     )
