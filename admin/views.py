@@ -33,10 +33,10 @@ def get_admin_data(request):
     return Response(
         {
             users: users_serializer.data,
-            accounts: accounts_serializer,
-            loans: loans_serializer,
-            cards: cards_serializer,
-            credit_transactions: credit_transactions_serializer,
-            transactions: transactions_serializer,
+            accounts: accounts_serializer.data,
+            loans: loans_serializer.data,
+            cards: cards_serializer.data,
+            credit_transactions: credit_transactions_serializer.data,
+            transactions: transactions_serializer.data,
         }
     )
