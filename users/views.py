@@ -46,5 +46,5 @@ def get_users(request):
 
 @api_view(["GET"])
 def validate_token(request):
-    check_admin = request.user.is_staff()
+    check_admin = request.user.is_staff
     return Response({"valid": "token is valid", "check_admin": check_admin})
