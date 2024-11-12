@@ -17,5 +17,26 @@ from transactions.serializers import TransactionSerializer
 @api_view(["GET"])
 def get_admin_data(request):
     users = BankUser.objects.all()
-
-    return Response("nigga")
+    accounts = Account.objects.all()
+    loans = Loan.objects.all()
+    cards = Card.objects.all()
+    credit_transactions = CreditTransaction.object.all()
+    transactions = Transaction.objects.all()
+    users_serializer = BankUserSerializer(users, many=True)
+    accounts_serializer = AccountSerializer(accounts, many=True)
+    loans_serializer = LoanSerializer(loans, many=True)
+    cards_serializer = CardSerializer(cards, many=True)
+    credit_transactions_serializer = CreditTransactionSerializer(
+        credit_transactions, many=True
+    )
+    transactions_serializer = TransactionSerializer(transactions, many=True)
+    return Response(
+        {
+            users: users_serializer.data,
+            accounts: accounts_serializer,
+            loans: loans_serializer,
+            cards: cards_serializer,
+            credit_transactions: credit_transactions_serializer,
+            transactions: transactions_serializer,
+        }
+    )
