@@ -31,7 +31,6 @@ def register(request):
         citizen_num=request.data["citizen_num"],
     )
     user.is_active = True
-    user.is_staff = False
     user.save()
     return Response("New user created")
 
