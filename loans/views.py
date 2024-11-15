@@ -48,7 +48,7 @@ def request_loan(request):
         if loan.is_valid():
             loan.save()
             loan_transaction = {
-                "amount": data["amount"],
+                "amount": Decimal(data["amount"]),
                 "reciever_account": account.id,
                 "transaction_type": "Loan",
                 "details": "Took a Loan",
