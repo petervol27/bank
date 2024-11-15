@@ -60,6 +60,4 @@ def request_loan(request):
                 account.balance = new_account_balance
                 account.save()
                 return Response(loan.data, status=status.HTTP_201_CREATED)
-            else:
-                print("Transaction serializer errors:", transaction_serializer.errors)
         return Response(loan.errors, status=status.HTTP_400_BAD_REQUEST)
