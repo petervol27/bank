@@ -53,7 +53,10 @@ def makeTransaction(request):
         reciever.balance = new_reciever_balance
         reciever.save()
     elif transaction == "loan":
-        loan = Loan.objects.get(account=sender_id)
+        try:
+            loan = Loan.objects.get(account=sender_id)
+        except Loan.DoesNotExist:
+            loan = None
         if loan:
             loan_balance = loan.left_to_pay
             if Decimal(amount) > loan_balance:
