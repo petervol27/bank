@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 @api_view(["GET"])
 def welcome_page(request):
     info = {
-        "message": "Welcome to My Django API",
+        "message": "Welcome to My Bank API",
         "endpoints": {
             "home": "/",
             "accounts": "/accounts/",
