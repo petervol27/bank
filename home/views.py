@@ -16,8 +16,8 @@ def welcome_page(request):
             "transactions": "/transactions/",
             "loans": "/loans/",
             "cards": "/cards/",
-            "token": {"login": "/login/", "refresh": "/refresh/"},
+            "token": {"login": "users/login/", "refresh": "/refresh/"},
         },
-        "note": "Use these endpoints to interact with the API.",
+        "note": "Use these endpoints to interact with the API, though they only work with authentication...so you know...security!",
     }
     return Response(info)
