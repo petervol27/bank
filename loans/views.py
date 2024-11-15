@@ -42,7 +42,7 @@ def request_loan(request):
         data["account"] = account.id
         loan_num = check_loan()
         data["loan_number"] = loan_num
-        data["left_to_pay"] = data["amount"]
+        data["left_to_pay"] = Decimal(data["amount"])
         loan = LoanSerializer(data=data)
         new_account_balance = account.balance + Decimal(data["amount"])
         if loan.is_valid():
