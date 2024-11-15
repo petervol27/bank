@@ -50,7 +50,7 @@ def request_loan(request):
             loan_transaction = {
                 "amount": Decimal(data["amount"]),
                 "reciever_account": account.id,
-                "transaction_type": "Loan",
+                "transaction_type": "loan",
                 "details": "Took a Loan",
                 "reciever_new_balance": new_account_balance,
             }
