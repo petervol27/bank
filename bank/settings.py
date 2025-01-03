@@ -41,7 +41,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
     "https://bank-front-xwed.onrender.com",
     "https://bank-zdpd.onrender.com",
-    "http://localhost:3000/",
 ]
 
 
