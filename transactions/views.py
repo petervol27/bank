@@ -26,6 +26,7 @@ def makeTransaction(request):
     amount = data.get("amount")
     reciever_id = data.get("reciever_account")
     sender_id = data.get("sender_account")
+    print(transaction)
     reciever = Account.objects.get(id=reciever_id) if reciever_id else None
     sender = Account.objects.get(id=sender_id) if sender_id else None
     if transaction == "salary":
