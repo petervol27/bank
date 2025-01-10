@@ -71,33 +71,36 @@ def card_history(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def use_card(request):
-    data = request.data
-    user = request.user
-    account = Account.objects.get(user=user)
-    card = Card.objects.get(account=account.id)
-    print(data)
-    print(user)
-    print(account)
-    print(card)
-    if card:
-        print("we have a card")
-        amount = data["amount"]
-        card_limit = card.credit_limit
-        new_credit_used = card.current_credit_used + Decimal(amount)
-        if new_credit_used > card_limit:
-            return Response({"failure": "you are over your card limit!"})
-        else:
-            data["card"] = card.id
-            serializer = CreditTransactionSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-                card.current_credit_used = new_credit_used
-                card.save()
-                print("success")
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+    try:
+        data = request.data
+        user = request.user
+        account = Account.objects.get(user=user)
+        card = Card.objects.get(account=account.id)
+        print(data)
+        print(user)
+        print(account)
+        print(card)
+        if card:
+            print("we have a card")
+            amount = data["amount"]
+            card_limit = card.credit_limit
+            new_credit_used = card.current_credit_used + Decimal(amount)
+            if new_credit_used > card_limit:
+                return Response({"failure": "you are over your card limit!"})
             else:
-                print("serializer error")
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
+                data["card"] = card.id
+                serializer = CreditTransactionSerializer(data=data)
+                if serializer.is_valid():
+                    serializer.save()
+                    card.current_credit_used = new_credit_used
+                    card.save()
+                    print("success")
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                else:
+                    print("serializer error")
+                    return Response(
+                        serializer.errors, status=status.HTTP_400_BAD_REQUEST
+                    )
+    except:
         print("fail no card")
         return Response({"failure": "You have no card"})
