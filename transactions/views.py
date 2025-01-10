@@ -78,7 +78,6 @@ def makeTransaction(request):
     elif transaction == "credit":
         card = Card.objects.get(account=sender_id)
         if card:
-
             card_balance = card.current_credit_used
             if card_balance == 0:
                 return Response({"failure": "Credit card not used!"})
