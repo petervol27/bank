@@ -44,19 +44,13 @@ def card_request(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_card(request):
-    print("entered")
     user = request.user
     account = Account.objects.get(user=user)
-    print(user)
-    print(account)
     try:
-        print(card)
         card = Card.objects.get(account=account.id)
         serializer = CardSerializer(card)
-        print("success")
         return Response(serializer.data)
     except:
-        print("failure")
         return Response("")
 
 
@@ -81,7 +75,12 @@ def use_card(request):
     user = request.user
     account = Account.objects.get(user=user)
     card = Card.objects.get(account=account.id)
+    print(data)
+    print(user)
+    print(account)
+    print(card)
     if card:
+        print("we have a card")
         amount = data["amount"]
         card_limit = card.credit_limit
         new_credit_used = card.current_credit_used + Decimal(amount)
@@ -94,8 +93,11 @@ def use_card(request):
                 serializer.save()
                 card.current_credit_used = new_credit_used
                 card.save()
+                print("success")
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
+                print("serializer error")
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
+        print("fail no card")
         return Response({"failure": "You have no card"})
