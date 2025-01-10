@@ -77,10 +77,8 @@ def makeTransaction(request):
         else:
             return Response({"failure": "You have no Loan"})
     elif transaction == "credit":
-        print("entered")
         try:
             card = Card.objects.get(account=sender_id)
-            print(card)
         except:
             card = None
         if card:
@@ -100,7 +98,6 @@ def makeTransaction(request):
                 sender.balance = new_sender_balance
                 sender.save()
         else:
-            print("fail")
             return Response({"failure": "You have no Credit Card"})
     print("success")
     new_transaction = TransactionSerializer(data=data)

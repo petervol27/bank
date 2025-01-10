@@ -44,13 +44,19 @@ def card_request(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_card(request):
+    print("entered")
     user = request.user
     account = Account.objects.get(user=user)
+    print(user)
+    print(account)
     try:
+        print(card)
         card = Card.objects.get(account=account.id)
         serializer = CardSerializer(card)
+        print("success")
         return Response(serializer.data)
     except:
+        print("failure")
         return Response("")
 
 
