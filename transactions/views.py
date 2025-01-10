@@ -116,6 +116,6 @@ def get_transactions(request):
     account = Account.objects.get(user=request.user)
     transactions = Transaction.objects.filter(
         Q(sender_account=account.id) | Q(reciever_account=account.id)
-    ).order_by("id")
+    ).order_by("-id")
     serializer = TransactionSerializer(transactions, many=True)
     return Response(serializer.data)
