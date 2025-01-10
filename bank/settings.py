@@ -41,7 +41,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://bank-front-xwed.onrender.com",
     "https://bank-zdpd.onrender.com",
     "http://localhost:3000",
-    "https://bank-react-jq1e.onrender.com/",
+    "https://bank-react-jq1e.onrender.com",
 ]
 
 
